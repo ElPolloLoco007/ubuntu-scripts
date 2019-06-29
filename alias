@@ -1,0 +1,12 @@
+#!/bin/bash
+
+alias q='exit'
+alias c='clear'
+alias h='history'
+alias ..='cd ..'
+alias ...='cd ..; cd ..'
+alias ....='cd ..; cd ..; cd ..'
+alias home='cd ~'
+alias root='cd /'
+alias ll='ls -lhA --color=auto'
+alias ls='ls --color=auto'

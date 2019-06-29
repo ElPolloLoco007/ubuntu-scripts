@@ -1,0 +1,136 @@
+#!/bin/bash
+
+sudo apt install curl -y
+sudo apt install vim -y
+sudo apt install nano -y
+sudo apt-get install terminator -y
+sudo apt install gdebi-core -y
+
+wget "https://updates.getmailspring.com/download?platform=linuxDeb"
+sudo gdebi download\?platform\=linuxDeb
+
+sudo apt update
+sudo apt install software-properties-common apt-transport-https wget
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt update
+sudo apt install code
+
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update
+sudo apt-get install spotify-client
+
+sudo add-apt-repository ppa:libreoffice/ppa
+sudo apt-get update
+sudo apt-get install libreoffice
+
+echo "=========Curl-nodejs-yarn========="
+sudo apt install curl
+sudo apt-get install curl python-software-properties
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+
+sudo npm install -g clang-format
+
+sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+sudo apt update
+sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash
+
+sudo apt install git
+git config --global user.email "helgipoulsen@hotmail.com"
+git config --global user.name "Helgi Poulsen"
+
+sudo add-apt-repository ppa:danielrichter2007/grub-customizer
+sudo apt-get update
+sudo apt-get install grub-customizer
+
+sudo apt install gnome-tweak-tool
+
+sudo apt-get remove docker docker-engine docker.io
+sudo apt install docker.io
+sudo usermod -aG docker ${USER}
+
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo apt install deluge
+
+sudo add-apt-repository ppa:linuxuprising/shutter
+sudo apt install shutter -y
+
+sudo apt-get install texlive-full -y
+sudo apt-get install texmaker -y
+
+sudo apt-get install okular -y  
+
+sudo apt-get install clementine -y
+
+sudo apt install openjdk-12-jdk -y
+
+sudo apt-get install postgresql postgresql-contrib -y
+
+echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >> /etc/apt/sources.list.d/pgdg.list
+sudo apt install vlcwget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get install postgresql-10
+
+sudo snap install htop
+
+wget "https://github.com/Kilian/fromscratch/releases/download/v1.4.3/FromScratch_1.4.3_amd64.deb"
+sudo gdebi FromScratch_1.4.3_amd64.deb -y
+
+sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+sudo apt update
+sudo apt install simplescreenrecorder -y
+
+sudo apt install gpodder
+
+wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
+sudo apt install ./slack-desktop-*.deb
+
+wget https://go.skype.com/skypeforlinux-64.deb
+sudo dpkg -i skypeforlinux-64.deb
+
+sudo apt-get install default-jdk
+
+sudo snap install postman
+sudo snap install squirrelsql
+sudo snap install android-studio --classic
+sudo snap install eclipse --classic
+
+sudo apt-add-repository ppa:cubic-wizard/release
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6494C6D6997C215E
+sudo apt update
+sudo apt install cubic
+
+sudo apt-get install locate
+
+sudo apt install chrome-gnome-shell
+
+ssh-keygen -t rsa -b 4096
+sudo cat ~/.ssh/id_rsa.pub
+
+ubuntu-drivers devices
+sudo ubuntu-drivers autoinstall
+
+
+sudo echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\]'" >> ~/.bashrc
+
+sudp cp ~/Dropbox/scripts/functions /usr/local/bin
+sudo cp ~/Dropbox/scripts/alias /usr/local/bin
+sudo cp ~/Dropbox/scripts/directories /usr/local/bin
+sudo cp -r ~/Dropbox/wallpapers ~/Pictures
+sudo cp -R /mnt/usb-JMicron_Tech_DB12345681BC-0:0-part1/Spotify\ sangir/ ~/Music/
+
+sudo echo "source /usr/local/bin/alias" >> ~/.bashrc
+sudo echo "source /usr/local/bin/functions" >> ~/.bashrc
+sudo echo "source /usr/local/bin/directories" >> ~/.bashrc
+source ~/.bashrc
+
+sudo chown -R $USER: $HOME
+
+
