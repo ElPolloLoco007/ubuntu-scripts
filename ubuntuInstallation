@@ -123,11 +123,6 @@ sudo apt-get install locate
 
 sudo apt install chrome-gnome-shell
 
-ssh-keygen -t rsa -b 4096
-sudo cat ~/.ssh/id_rsa.pub
-
-ubuntu-drivers devices
-sudo ubuntu-drivers autoinstall
 
 sudo gpasswd --add ${USER} dialout
 
