@@ -1,0 +1,49 @@
+#!/bin/bash
+echo "======Nodejs======"
+sudo apt-get remove nodejs
+sudo apt-get purge nodejs
+cd ~
+sudo apt install curl
+curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
+sudo apt install nodejs
+nodejs --version
+read -p "Continuing in 3 seconds..." -t 3
+
+echo "======Zwave======"
+sudo apt install libopenzwave1.5-dev
+
+echo "======Bluetooth======"
+sudo apt-get install bluetooth bluez libbluetooth-dev libudev-dev
+sudo setcap cap_net_raw+eip $(eval readlink -f $(which node))
+
+
+echo -p "=====Awscli====="
+sudo apt install awscli
+aws configure
+
+techcarerepos() {
+    cd ~
+    echo "Example folder destination: Desktop/techcare"
+    while read -ep "Enter folder path location: " file_dir; do
+        if [ -d "${file_dir}" ]; then
+            echo "${file_dir} already exists - please enter a valid directory path."
+        else
+            mkdir -p "${file_dir}"
+            cd ${file_dir}
+            git clone git@github.com:techcare-fo/api.git
+            git clone git@github.com:techcare-fo/app.git
+            break
+        fi
+    done
+}
+
+echo "Do you wish to clone techcare repos api/app?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes)
+            techcarerepos
+            break
+        ;;
+        No) break ;;
+    esac
+done

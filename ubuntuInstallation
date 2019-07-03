@@ -1,14 +1,178 @@
 #!/bin/bash
 
+SECONDS=0
+COUNTER=1
+END=27
+
+
+echo "---------------------------------------------------"
+date
+echo "---------------------------------------------------"
+echo "Installation BASH Script For Ubuntu 18.04.2 LTS"
+echo "v1.0 (04-07-2019)"
+echo "---------------------------------------------------"
+echo ""
+echo ""
+echo "---------Before starting---------"
+echo "Install DROPBOX"
+read -p "Press [enter] to continue:"
+echo "Add LASTPASS to Firefox"
+read -p "Press [enter] to continue:"
+echo "Login your Firefox USER"
+read -p "Press [enter] to continue:"
+
+countdown()
+(
+    IFS=:
+    set -- $*
+    secs=$(( ${1#0} * 3600 + ${2#0} * 60 + ${3#0} ))
+    while [ $secs -gt 0 ]
+    do
+        sleep 1 &
+        printf "\r%02d:%02d:%02d" $((secs/3600)) $(( (secs/60)%60)) $((secs%60))
+        secs=$(( $secs - 1 ))
+        wait
+    done
+    echo
+)
+echo "Installation starts in 5 seconds!"
+countdown "00:00:5" # 10 sec
+
+
+echo "HERE WE GO!"
+sleep 2
+
+#1
+#Essentials
+notify-send " $COUNTER of $END Essentials"
+COUNTER=$[$COUNTER +1]
 sudo apt install curl -y
 sudo apt install vim -y
 sudo apt install nano -y
 sudo apt-get install terminator -y
 sudo apt install gdebi-core -y
+sudo apt install -y wget jq unzip
+sudo apt install git -y
+sudo apt install gnome-tweak-tool -y
+sudo snap install htop -y
+sudo apt-get install locate -y
 
+sudo add-apt-repository ppa:danielrichter2007/grub-customizer
+sudo apt-get update
+sudo apt-get install grub-customizer -y
+
+sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+sudo apt update
+sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash -y
+
+sudo add-apt-repository ppa:linuxuprising/shutter
+sudo apt install shutter -y
+
+#2
+#Settings
+notify-send " $COUNTER of $END Settings"
+COUNTER=$[$COUNTER +1]
+gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
+sudo echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\]'" >> ~/.bashrc
+sudo chown -R $USER: $HOME
+git config --global user.email "helgipoulsen@hotmail.com"
+git config --global user.name "Helgi Poulsen"
+sudo npm install -g clang-format
+sudo gpasswd --add ${USER} dialout
+
+rsakey() {
+    echo "======RSAKEY======"
+    echo "1.Generate key"
+    echo "2.show key"
+    echo "3.exit"
+    
+    while :; do
+        read INPUT_STRING
+        case $INPUT_STRING in
+            1)
+                ssh-keygen -t rsa -b 4096
+                echo "1.Generate key"
+                echo "2.show key"
+                echo "3.exit"
+            ;;
+            2)
+                sudo cat ~/.ssh/id_rsa.pub
+                echo "1.Generate key"
+                echo "2.show key"
+                echo "3.exit"
+            ;;
+            3)
+                break
+            ;;
+            *)
+                echo "pick 1, 2 or 3"
+            ;;
+        esac
+    done
+    echo
+    echo "remember to copy your key to github"
+}
+
+echo "==Do you wish to setup RSA key?=="
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes)
+            rsakey
+            break
+        ;;
+        No) break ;;
+    esac
+done
+
+echo "Add your rsa key to github!"
+read -p "Press [enter] to continue"
+
+
+#3
+#Gnome shell extensions
+notify-send " $COUNTER of $END Gnome shell extensions"
+sudo apt install chrome-gnome-shell
+~Dropbox/scripts/gnomeExtensions/install-gnome-extensions.sh --enable --file gExtensions
+
+
+#4
+#NodeJs 12
+notify-send " $COUNTER of $END Nodejs 12"
+sudo apt-get install curl python-software-properties
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+#5
+#Yarn
+notify-send " $COUNTER of $END Yarn"
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+
+#6
+#Dotnet
+notify-send " $COUNTER of $END dotnet-sdk-2.2"
+wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo add-apt-repository universe
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install dotnet-sdk-2.2
+
+#7
+#JDK 12
+notify-send " $COUNTER of $END jdk 12"
+sudo apt install openjdk-12-jdk -y
+
+#8
+#MailSpring
+notify-send " $COUNTER of $END MailSpring"
 wget "https://updates.getmailspring.com/download?platform=linuxDeb"
 sudo gdebi download\?platform\=linuxDeb
 
+#9
+#VS code
+notify-send " $COUNTER of $END VScode"
 sudo apt update
 sudo apt install software-properties-common apt-transport-https wget
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
@@ -16,129 +180,151 @@ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/v
 sudo apt update
 sudo apt install code
 
+#10
+#Spotify
+notify-send " $COUNTER of $END Spotify"
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt-get update
 sudo apt-get install spotify-client
 
+#11
+#LibreOffice
+notify-send " $COUNTER of $END LibreOffice"
 sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt-get update
 sudo apt-get install libreoffice
 
-echo "=========Curl-nodejs-yarn========="
-sudo apt install curl
-sudo apt-get install curl python-software-properties
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-sudo apt-get install -y nodejs
 
-curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update && sudo apt-get install yarn
-
-sudo npm install -g clang-format
-
-sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-sudo apt update
-sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash
-
-sudo apt install git
-git config --global user.email "helgipoulsen@hotmail.com"
-git config --global user.name "Helgi Poulsen"
-
-sudo add-apt-repository ppa:danielrichter2007/grub-customizer
-sudo apt-get update
-sudo apt-get install grub-customizer
-
-sudo apt install gnome-tweak-tool
-
+#12
+#docker
+notify-send " $COUNTER of $END Docker"
 sudo apt-get remove docker docker-engine docker.io
 sudo apt install docker.io
 sudo usermod -aG docker ${USER}
 
+#13
+#docker-compose
+notify-send " $COUNTER of $END Docker"
 sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-sudo apt install deluge
+#13
+#Delouge
+notify-send " $COUNTER of $END Delouge"
+sudo apt install deluge -y
 
-sudo add-apt-repository ppa:linuxuprising/shutter
-sudo apt install shutter -y
-
+#14
+#DLateX
+notify-send " $COUNTER of $END LateX"
 sudo apt-get install texlive-full -y
 sudo apt-get install texmaker -y
 
-sudo apt-get install okular -y  
+#15
+#okular
+notify-send " $COUNTER of $END Okular"
+sudo apt-get install okular -y
 
+#16
+#Clementine
+notify-send " $COUNTER of $END Clementine"
 sudo apt-get install clementine -y
 
-sudo apt install openjdk-12-jdk -y
-
+#17
+#Postgres
+notify-send " $COUNTER of $END Postgres"
 sudo apt-get install postgresql postgresql-contrib -y
-
-sudo apt-get install pinta
 
 echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >> /etc/apt/sources.list.d/pgdg.list
 sudo apt install vlcwget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo apt-get install postgresql-10
 
-sudo snap install htop
+#18
+#Pinta
+notify-send " $COUNTER of $END Pinta"
+sudo apt-get install pinta -y
 
+#19
+#FromScratch
+notify-send " $COUNTER of $END FromScratch"
 wget "https://github.com/Kilian/fromscratch/releases/download/v1.4.3/FromScratch_1.4.3_amd64.deb"
 sudo gdebi FromScratch_1.4.3_amd64.deb -y
 
+#20
+#Screen recorder
+notify-send " $COUNTER of $END Screen Recorder"
 sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
 sudo apt update
 sudo apt install simplescreenrecorder -y
 
+#21
+#gPodder
+notify-send " $COUNTER of $END gPodder"
 sudo apt install gpodder
 
+#22
+#Slack
+notify-send " $COUNTER of $END Slack"
 wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
 sudo apt install ./slack-desktop-*.deb
 
+#23
+#Skype
+notify-send " $COUNTER of $END Skype"
 wget https://go.skype.com/skypeforlinux-64.deb
 sudo dpkg -i skypeforlinux-64.deb
 
-sudo apt-get install default-jdk
-
-wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
-
-sudo add-apt-repository universe
-sudo apt-get install apt-transport-https
-sudo apt-get update
-sudo apt-get install dotnet-sdk-2.2
-
-
-
-sudo snap install postman
-sudo snap install squirrelsql
-sudo snap install android-studio --classic
-sudo snap install eclipse --classic
-
+#24
+#Cubic
+notify-send " $COUNTER of $END Cubic"
 sudo apt-add-repository ppa:cubic-wizard/release
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6494C6D6997C215E
 sudo apt update
 sudo apt install cubic
 
-sudo apt-get install locate
+#25
+#Snaps
+notify-send " $COUNTER of $END Snaps"
+sudo snap install postman
+sudo snap install squirrelsql
+sudo snap install gifcurry
 
-sudo apt install chrome-gnome-shell
 
-
-sudo gpasswd --add ${USER} dialout
-
-sudo echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\]'" >> ~/.bashrc
-
-sudp cp ~/Dropbox/scripts/functions /usr/local/bin
+#26
+#Adding scripts
+notify-send " $COUNTER of $END Adding scripts"
+sudo cp ~/Dropbox/scripts/functions /usr/local/bin
 sudo cp ~/Dropbox/scripts/alias /usr/local/bin
 sudo cp ~/Dropbox/scripts/directories /usr/local/bin
+sudo cp ~/Dropbox/scripts/techcare /usr/local/bin
+
 sudo cp -r ~/Dropbox/wallpapers ~/Pictures
-sudo cp -R /mnt/usb-JMicron_Tech_DB12345681BC-0:0-part1/Spotify\ sangir/ ~/Music/
 
 sudo echo "source /usr/local/bin/alias" >> ~/.bashrc
 sudo echo "source /usr/local/bin/functions" >> ~/.bashrc
 sudo echo "source /usr/local/bin/directories" >> ~/.bashrc
+sudo echo "source /usr/local/bin/techcare" >> ~/.bashrc
+
 source ~/.bashrc
 
-sudo chown -R $USER: $HOME
 
+#27
+#Installing software depending on pc or laptop
+notify-send " $COUNTER of $END Installing software depening on pc or laptop"
+case $HOSTNAME in
+    (helgi-u-pc)
+    sudo apt install flatpak
+    sudo apt install gnome-software-plugin-flatpak
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub org.gabmus.hydrapaper
+;;
+(helgi-u-laptop)
+~/Dropbox/scripts/techcareInstall;;
+(*)   echo "How did I get in the middle of nowhere?";;
+esac
+
+echo "---------------------------------------------------"
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
+echo "---------------------------------------------------"
 

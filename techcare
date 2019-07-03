@@ -1,0 +1,53 @@
+techcarerepos() {
+    cd ~
+    echo "Example folder destination: Desktop/techcare"
+    while read -ep "Enter folder path location: " file_dir; do
+        if [ -d "${file_dir}" ]; then
+            echo "${file_dir} already exists - please enter a valid directory path."
+        else
+            mkdir -p "${file_dir}"
+            cd ${file_dir}
+            git clone git@github.com:techcare-fo/api.git
+            git clone git@github.com:techcare-fo/app.git
+            break
+        fi
+    done
+}
+
+clonetcrepos(){
+    echo "Do you wish to clone techcare repos api/app?"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes)
+                techcarerepos
+                break
+            ;;
+            No) break ;;
+        esac
+    done
+}
+
+runtapi (){
+    cd /home/helgi/Desktop/techcare/api
+    docker-compose down
+    docker-compose up
+}
+
+runtapp (){
+    cd /home/helgi/Desktop/techcare/app
+    yarn start
+}
+
+runtcypress(){
+    cd /home/helgi/Desktop/techcare/app
+    yarn cypress:open
+    
+}
+
+tapi (){
+    cd /home/helgi/Desktop/techcare/api
+}
+
+tapp (){
+    cd /home/helgi/Desktop/techcare/app
+}
