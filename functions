@@ -14,44 +14,39 @@ update() {
     sudo apt-get update
     sudo apt-get upgrade
     sudo apt-get dist-upgrade
-    
+
     sudo cp -f ~/Dropbox/scripts/functions /usr/local/bin
     sudo cp -f ~/Dropbox/scripts/alias /usr/local/bin
-    sudo cp -f ~/Dropbox/scripts/directories /usr/local/bin
-    
-    sudo cp -f /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++/calendar/bin/calendar /usr/local/bin
-    
+
     sudo cp -f -r ~/Dropbox/wallpapers/ ~/Pictures/
-    
-    
-    
-    
+
     source ~/.bashrc
     echo ""
-    
+
     case $HOSTNAME in
-        (helgi-u-pc)
-    ;;
-    (helgi-u-laptop)
-    sudo rm /usr/local/bin/techcare
-    sudo cp ~/Dropbox/scripts/techcare /usr/local/bin
-    echo "updated:techcare"
-    
-;;
-(*)   echo "How did I get in the middle of nowhere?";;
-esac
-    
-    
+    helgi-u-pc)
+        sudo cp -f ~/Dropbox/scripts/directoriesPC /usr/local/bin
+        sudo cp -f /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++/calendar/bin/calendar /usr/local/bin
+        ;;
+
+    helgi-u-laptop)
+        sudo cp -f ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
+        sudo rm /usr/local/bin/techcare
+        sudo cp ~/Dropbox/scripts/techcare /usr/local/bin
+        ;;
+    *) echo "How did I get in the middle of nowhere?" ;;
+    esac
+
     echo "==Do you wish to clean?=="
     select yn in "Yes" "No"; do
         case $yn in
-            Yes)
-                sudo du -sh /var/cache/apt/archives
-                sudo apt-get clean
-                sudo apt-get autoremove --purge
-                break
+        Yes)
+            sudo du -sh /var/cache/apt/archives
+            sudo apt-get clean
+            sudo apt-get autoremove --purge
+            break
             ;;
-            No) break ;;
+        No) break ;;
         esac
     done
 }
@@ -63,33 +58,33 @@ function shutDownTimer() {
     echo "3.Now"
     echo "4.Cancel"
     echo "5.Exit"
-    
+
     while :; do
         read -p "Make your choise:" INPUT_STRING
         case $INPUT_STRING in
-            1)
-                read -p "How many minutes:" TIME
-                sudo shutdown -P +$TIME
-                break
+        1)
+            read -p "How many minutes:" TIME
+            sudo shutdown -P +$TIME
+            break
             ;;
-            2)
-                read -p "What time:"CLOCK
-                sudo shutdown -P $CLOCK
-                break
+        2)
+            read -p "What time:"CLOCK
+            sudo shutdown -P $CLOCK
+            break
             ;;
-            3)
-                sudo shutdown -P now
-                break
+        3)
+            sudo shutdown -P now
+            break
             ;;
-            4)
-                sudo shutdown -c
-                break
+        4)
+            sudo shutdown -c
+            break
             ;;
-            5)
-                break
+        5)
+            break
             ;;
-            *)
-                echo "pick 1, 2, 3, 4 or 5"
+        *)
+            echo "pick 1, 2, 3, 4 or 5"
             ;;
         esac
     done
