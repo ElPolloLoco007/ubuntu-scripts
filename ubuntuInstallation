@@ -71,6 +71,10 @@ sudo apt-get install network-manager-openvpn-gnome
 sudo apt-get install network-manager-openvpn
 sudo apt-get install network-manager-pptp
 
+sudo apt update
+sudo apt upgrade
+sudo apt install usb-creator-gtk
+
 #2
 #Settings
 notify-send " $COUNTER of $END Settings"
@@ -300,10 +304,19 @@ sudo apt install cubic
 
 #24
 #Vlc
-notify-send " $COUNTER of $END Cubic"
+notify-send " $COUNTER of $END VLC"
 COUNTER=$(($COUNTER + 1))
 sudo apt install vlc qtwayland5
 sudo apt install libavcodec-extra
+
+#24
+#Flatpak and hydrapaper
+notify-send " $COUNTER of $END FP and hydrapaper"
+COUNTER=$(($COUNTER + 1))
+sudo apt install flatpak
+sudo apt install gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.gabmus.hydrapaper
 
 #25
 #Snaps
@@ -312,25 +325,6 @@ COUNTER=$(($COUNTER + 1))
 sudo snap install postman
 sudo snap install squirrelsql
 sudo snap install gifcurry
-
-#27
-#Installing software depending on pc or laptop
-notify-send " $COUNTER of $END Installing software depening on pc or laptop"
-COUNTER=$(($COUNTER + 1))
-case $HOSTNAME in
-helgi-u-pc)
-    sudo apt install flatpak
-    sudo apt install gnome-software-plugin-flatpak
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak install flathub org.gabmus.hydrapaper
-    ;;
-helgi-u-laptop)
-    cd ~/Dropbox/scripts/
-    ./techcareInstall
-    cd
-    ;;
-*) echo "How did I get in the middle of nowhere?" ;;
-esac
 
 #26
 #Adding scripts
@@ -342,11 +336,11 @@ sudo cp ~/Dropbox/scripts/techcare /usr/local/bin
 sudo echo "source /usr/local/bin/alias" >>~/.bashrc
 sudo echo "source /usr/local/bin/functions" >>~/.bashrc
 sudo echo "source /usr/local/bin/techcare" >>~/.bashrc
+sudo cp -r ~/Dropbox/wallpapers ~/Pictures
 
-#Adding c++ programs
 #27
 #Installing software depending on pc or laptop
-notify-send " $COUNTER of $END Installing c++ depening on pc or laptop"
+notify-send " $COUNTER of $END Adding depening on pc or laptop"
 COUNTER=$(($COUNTER + 1))
 case $HOSTNAME in
 helgi-u-pc)
@@ -358,14 +352,13 @@ helgi-u-pc)
 helgi-u-laptop)
     sudo cp ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
     sudo echo "source /usr/local/bin/directoriesLaptop" >>~/.bashrc
+    cd ~/Dropbox/scripts/
+    ./techcareInstall
     ;;
 *) echo "How did I get in the middle of nowhere?" ;;
 esac
-sudo cp -r ~/Dropbox/wallpapers ~/Pictures
-
 
 source ~/.bashrc
-
 
 #27
 notify-send " $COUNTER of $END Cleanup downloaded files"
