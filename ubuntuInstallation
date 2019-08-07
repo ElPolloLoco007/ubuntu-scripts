@@ -68,6 +68,10 @@ sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash -y
 sudo add-apt-repository ppa:linuxuprising/shutter
 sudo apt install shutter -y
 
+sudo apt-get install network-manager-openvpn-gnome
+sudo apt-get install network-manager-openvpn
+sudo apt-get install network-manager-pptp
+
 #2
 #Settings
 notify-send " $COUNTER of $END Settings"
@@ -77,8 +81,9 @@ sudo echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w
 sudo chown -R $USER: $HOME
 git config --global user.email "helgipoulsen@hotmail.com"
 git config --global user.name "Helgi Poulsen"
-sudo npm install -g clang-format
 sudo gpasswd --add ${USER} dialout
+
+
 
 rsakey() {
     echo "======RSAKEY======"
@@ -133,7 +138,9 @@ read -p "Press [enter] to continue"
 notify-send " $COUNTER of $END Gnome shell extensions"
 COUNTER=$[$COUNTER +1]
 sudo apt install chrome-gnome-shell
-~Dropbox/scripts/gnomeExtensions/install-gnome-extensions.sh --enable --file gExtensions
+cd ~/Dropbox/scripts/gnomeExtensions/
+./install-gnome-extensions.sh --enable --file gExtensions
+cd
 
 
 #4
@@ -227,7 +234,7 @@ COUNTER=$[$COUNTER +1]
 sudo apt install deluge -y
 
 #14
-#DLateX
+#LateX
 notify-send " $COUNTER of $END LateX"
 COUNTER=$[$COUNTER +1]
 sudo apt-get install texlive-full -y
@@ -268,35 +275,28 @@ COUNTER=$[$COUNTER +1]
 wget "https://github.com/Kilian/fromscratch/releases/download/v1.4.3/FromScratch_1.4.3_amd64.deb"
 sudo gdebi FromScratch_1.4.3_amd64.deb -y
 
-#20
-#Screen recorder
-notify-send " $COUNTER of $END Screen Recorder"
-COUNTER=$[$COUNTER +1]
-sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
-sudo apt update
-sudo apt install simplescreenrecorder -y
 
-#21
+#20
 #gPodder
 notify-send " $COUNTER of $END gPodder"
 COUNTER=$[$COUNTER +1]
 sudo apt install gpodder
 
-#22
+#21
 #Slack
 notify-send " $COUNTER of $END Slack"
 COUNTER=$[$COUNTER +1]
 wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
 sudo apt install ./slack-desktop-*.deb
 
-#23
+#22
 #Skype
 notify-send " $COUNTER of $END Skype"
 COUNTER=$[$COUNTER +1]
 wget https://go.skype.com/skypeforlinux-64.deb
 sudo dpkg -i skypeforlinux-64.deb
 
-#24
+#23
 #Cubic
 notify-send " $COUNTER of $END Cubic"
 COUNTER=$[$COUNTER +1]
@@ -304,6 +304,13 @@ sudo apt-add-repository ppa:cubic-wizard/release
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6494C6D6997C215E
 sudo apt update
 sudo apt install cubic
+
+#24
+#Vlc
+notify-send " $COUNTER of $END Cubic"
+COUNTER=$[$COUNTER +1]
+sudo apt install vlc qtwayland5
+sudo apt install libavcodec-extra
 
 #25
 #Snaps
@@ -323,6 +330,10 @@ sudo cp ~/Dropbox/scripts/alias /usr/local/bin
 sudo cp ~/Dropbox/scripts/directories /usr/local/bin
 sudo cp ~/Dropbox/scripts/techcare /usr/local/bin
 
+#Adding c++ programs
+sudo cp /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++/calendar/bin/calendar /usr/local/bin
+sudo echo "/usr/local/bin/calendar" >> ~/.bashrc
+
 sudo cp -r ~/Dropbox/wallpapers ~/Pictures
 
 sudo echo "source /usr/local/bin/alias" >> ~/.bashrc
@@ -332,6 +343,16 @@ sudo echo "source /usr/local/bin/techcare" >> ~/.bashrc
 
 source ~/.bashrc
 
+sudo cp ~/Dropbox/settingsFiles/TerminatorConfig/config ~/.config/terminator/
+
+#27
+notify-send " $COUNTER of $END Cleanup downloaded files"
+COUNTER=$[$COUNTER +1]
+sudo rm ~/Dropbox/scripts/download?platform=linuxDeb
+sudo rm ~/Dropbox/scripts/FromScratch_1.4.3_amd64.deb
+sudo rm ~/Dropbox/scripts/packages-microsoft-prod.deb
+sudo rm ~/Dropbox/scripts/skypeforlinux-64.deb
+sudo rm ~/Dropbox/scripts/slack-desktop-3.3.8-amd64.deb
 
 #27
 #Installing software depending on pc or laptop
@@ -345,13 +366,13 @@ case $HOSTNAME in
     flatpak install flathub org.gabmus.hydrapaper
 ;;
 (helgi-u-laptop)
-~/Dropbox/scripts/techcareInstall;;
+cd ~/Dropbox/scripts/
+./techcareInstall
+cd;;
 (*)   echo "How did I get in the middle of nowhere?";;
 esac
 
-sudo apt-get install network-manager-openvpn-gnome
-sudo apt-get install network-manager-openvpn
-sudo apt-get install network-manager-pptp
+
 
 
 echo "---------------------------------------------------"

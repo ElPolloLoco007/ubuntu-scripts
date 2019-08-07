@@ -11,33 +11,21 @@ mcd() {
 }
 
 update() {
-    echo ""
-    echo "=UPDATE="
     sudo apt-get update
-    echo ""
-    echo "=UPGRADE="
     sudo apt-get upgrade
-    echo ""
-    echo "=dist-upgrade="
     sudo apt-get dist-upgrade
-    echo ""
-    echo "=UPDATING BASH SCRIPTS="
     
-    sudo rm  /usr/local/bin/functions
-    sudo rm /usr/local/bin/alias
-    sudo rm /usr/local/bin/directories
-    sudo rm -r ~/Pictures/wallpapers/
+    sudo cp -f ~/Dropbox/scripts/functions /usr/local/bin
+    sudo cp -f ~/Dropbox/scripts/alias /usr/local/bin
+    sudo cp -f ~/Dropbox/scripts/directories /usr/local/bin
     
-    sudo cp -r ~/Dropbox/wallpapers/ ~/Pictures/
-
-    sudo cp ~/Dropbox/scripts/functions /usr/local/bin
-    echo "updated:functions"
-    sudo cp ~/Dropbox/scripts/alias /usr/local/bin
-    echo "updated:alias"
-    sudo cp ~/Dropbox/scripts/directories /usr/local/bin
-    echo "updated:directories"
+    sudo cp -f /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++/calendar/bin/calendar /usr/local/bin
     
-
+    sudo cp -f -r ~/Dropbox/wallpapers/ ~/Pictures/
+    
+    
+    
+    
     source ~/.bashrc
     echo ""
     
