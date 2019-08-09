@@ -28,26 +28,26 @@ clonetcrepos(){
 }
 
 runtapi (){
-    cd /home/helgi/Desktop/techcare/api
+    cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/React/techcare/api
     docker-compose down
     docker-compose up
 }
 
 runtapp (){
-    cd /home/helgi/Desktop/techcare/app
+    cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/React/techcare/app
     yarn start
 }
 
 runtcypress(){
-    cd /home/helgi/Desktop/techcare/app
+    cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/React/techcare/app
     yarn cypress:open
     
 }
 
 tapi (){
-    cd /home/helgi/Desktop/techcare/api
+    cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/React/techcare/api
 }
 
 tapp (){
-    cd /home/helgi/Desktop/techcare/app
+    /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/React/techcare/app
 }

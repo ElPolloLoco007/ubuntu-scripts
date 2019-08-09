@@ -47,6 +47,7 @@ sudo apt install vim -y
 sudo apt install nano -y
 
 sudo apt-get install terminator -y
+sudo mkdir ~/.config/terminator
 sudo cp ~/Dropbox/settingsFiles/TerminatorConfig/config ~/.config/terminator/
 
 sudo apt install gdebi-core -y
@@ -91,27 +92,27 @@ rsakey() {
     echo "1.Generate key"
     echo "2.show key"
     echo "3.exit"
-
+    
     while :; do
         read INPUT_STRING
         case $INPUT_STRING in
-        1)
-            ssh-keygen -t rsa -b 4096
-            echo "1.Generate key"
-            echo "2.show key"
-            echo "3.exit"
+            1)
+                ssh-keygen -t rsa -b 4096
+                echo "1.Generate key"
+                echo "2.show key"
+                echo "3.exit"
             ;;
-        2)
-            sudo cat ~/.ssh/id_rsa.pub
-            echo "1.Generate key"
-            echo "2.show key"
-            echo "3.exit"
+            2)
+                sudo cat ~/.ssh/id_rsa.pub
+                echo "1.Generate key"
+                echo "2.show key"
+                echo "3.exit"
             ;;
-        3)
-            break
+            3)
+                break
             ;;
-        *)
-            echo "pick 1, 2 or 3"
+            *)
+                echo "pick 1, 2 or 3"
             ;;
         esac
     done
@@ -122,11 +123,11 @@ rsakey() {
 echo "==Do you wish to setup RSA key?=="
 select yn in "Yes" "No"; do
     case $yn in
-    Yes)
-        rsakey
-        break
+        Yes)
+            rsakey
+            break
         ;;
-    No) break ;;
+        No) break ;;
     esac
 done
 
@@ -197,7 +198,7 @@ sudo apt install code
 #Spotify
 notify-send " $COUNTER of $END Spotify"
 COUNTER=$(($COUNTER + 1))
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 2EBF997C15BDA244B6EBF5D84773BD5E130D1D45
 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt-get update
 sudo apt-get install spotify-client
@@ -302,6 +303,8 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6494C6D6997C215E
 sudo apt update
 sudo apt install cubic
 
+sudo cp ~/Dropbox/settingsFiles/RadioTray/bookmarks.xml /usr/share/radiotray
+
 #24
 #Vlc
 notify-send " $COUNTER of $END VLC"
@@ -343,19 +346,21 @@ sudo cp -r ~/Dropbox/wallpapers ~/Pictures
 notify-send " $COUNTER of $END Adding depening on pc or laptop"
 COUNTER=$(($COUNTER + 1))
 case $HOSTNAME in
-helgi-u-pc)
-    sudo cp ~/Dropbox/scripts/directoriesPC /usr/local/bin
-    sudo echo "source /usr/local/bin/directoriesPC" >>~/.bashrc
-    sudo cp /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++/calendar/bin/calendar /usr/local/bin
-    sudo echo "/usr/local/bin/calendar" >>~/.bashrc
+    helgi-u-pc)
+        sudo cp ~/Dropbox/scripts/directoriesPC /usr/local/bin
+        sudo echo "source /usr/local/bin/directoriesPC" >>~/.bashrc
+        sudo cp /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++/calendar/bin/calendar /usr/local/bin
+        sudo echo "/usr/local/bin/calendar" >>~/.bashrc
     ;;
-helgi-u-laptop)
-    sudo cp ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
-    sudo echo "source /usr/local/bin/directoriesLaptop" >>~/.bashrc
-    cd ~/Dropbox/scripts/
-    ./techcareInstall
+    helgi-u-laptop)
+        sudo cp ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
+        sudo echo "source /usr/local/bin/directoriesLaptop" >>~/.bashrc
+        sudo cp -f '/mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar' /usr/local/bin/
+        sudo echo "/usr/local/bin/calendar" >>~/.bashrc
+        cd ~/Dropbox/scripts/
+        ./techcareInstall
     ;;
-*) echo "How did I get in the middle of nowhere?" ;;
+    *) echo "How did I get in the middle of nowhere?" ;;
 esac
 
 source ~/.bashrc
@@ -368,6 +373,12 @@ sudo rm ~/Dropbox/scripts/FromScratch_1.4.3_amd64.deb
 sudo rm ~/Dropbox/scripts/packages-microsoft-prod.deb
 sudo rm ~/Dropbox/scripts/skypeforlinux-64.deb
 sudo rm ~/Dropbox/scripts/slack-desktop-3.3.8-amd64.deb
+
+sudo rm ~/download?platform=linuxDeb
+sudo rm ~/FromScratch_1.4.3_amd64.deb
+sudo rm ~/packages-microsoft-prod.deb
+sudo rm ~/skypeforlinux-64.deb
+sudo rm ~/slack-desktop-3.3.8-amd64.deb
 
 echo "---------------------------------------------------"
 duration=$SECONDS

@@ -1,9 +1,8 @@
 #!/bin/bash
 
-alias c++projects='cd /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++'
-alias c#projects='cd /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C#'
-alias arduinoprojects='cd /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/Arduino'
-alias reactprojects='cd /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/React'
-alias androidprojects='cd /media/helgi/SSD2/Projects/Android'
-alias projects='cd /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects'
-
+alias c++projects='cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++'
+alias c#projects='cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C#'
+alias arduinoprojects='cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/Arduino'
+alias reactprojects='cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/React'
+alias androidprojects='cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/Android'
+alias projects='cd /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects'
