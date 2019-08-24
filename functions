@@ -57,6 +57,7 @@ update() {
 function calendar()
 {
     '/usr/local/bin/calendar' $@
+    
 }
 
 function shutDownTimer() {
