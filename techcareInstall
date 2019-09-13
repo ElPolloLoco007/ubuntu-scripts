@@ -9,13 +9,9 @@ sudo apt install nodejs
 nodejs --version
 read -p "Continuing in 3 seconds..." -t 3
 
-echo "======Zwave======"
-sudo apt install libopenzwave1.5-dev
-
-echo "======Bluetooth======"
-sudo apt-get install bluetooth bluez libbluetooth-dev libudev-dev
-sudo setcap cap_net_raw+eip $(eval readlink -f $(which node))
-
+sudo apt-get remove docker docker-engine docker.io
+sudo apt install docker.io
+sudo usermod -aG docker ${USER}
 
 echo -p "=====Awscli====="
 sudo apt install awscli
@@ -40,10 +36,10 @@ techcarerepos() {
 echo "Do you wish to clone techcare repos api/app?"
 select yn in "Yes" "No"; do
     case $yn in
-        Yes)
-            techcarerepos
-            break
+    Yes)
+        techcarerepos
+        break
         ;;
-        No) break ;;
+    No) break ;;
     esac
 done

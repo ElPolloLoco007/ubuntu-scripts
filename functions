@@ -20,6 +20,10 @@ update() {
     
     sudo cp -f -r ~/Dropbox/wallpapers/ ~/Pictures/
     
+    sudo du -sh /var/cache/apt/archives
+    sudo apt-get clean
+    sudo apt-get autoremove --purge
+    
     echo ""
     
     case $HOSTNAME in
@@ -34,30 +38,15 @@ update() {
             sudo cp ~/Dropbox/scripts/techcare /usr/local/bin
             sudo cp -f /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar /usr/local/bin
             
-            
         ;;
+        
         *) echo "How did I get in the middle of nowhere?" ;;
     esac
     source ~/.bashrc
-    
-    echo "==Do you wish to clean?=="
-    select yn in "Yes" "No"; do
-        case $yn in
-            Yes)
-                sudo du -sh /var/cache/apt/archives
-                sudo apt-get clean
-                sudo apt-get autoremove --purge
-                break
-            ;;
-            No) break ;;
-        esac
-    done
 }
 
-function calendar()
-{
-    '/usr/local/bin/calendar' $@
-    
+function calendar() {
+    '/usr/local/bin/calendar' $@    
 }
 
 function shutDownTimer() {
@@ -104,4 +93,9 @@ function shutDownTimer() {
         echo
         exit
     fi
+}
+
+bwordcount() {
+    cd '/mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/React/bachelor-report/Reactive User Interface for Px-Statbanks'
+    pdftotext main.pdf - | tr -d '.' | wc -w
 }

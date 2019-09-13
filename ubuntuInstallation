@@ -38,9 +38,9 @@ countdown "00:00:5" # 10 sec
 echo "HERE WE GO!"
 sleep 2
 
+sudo ubuntu-drivers autoinstall
 
 sudo apt install curl -y
-sudo apt install vim -y
 sudo apt install nano -y
 
 sudo apt-get install terminator -y
@@ -54,10 +54,6 @@ sudo apt install gnome-tweak-tool -y
 sudo snap install htop -y
 sudo apt-get install locate -y
 
-sudo add-apt-repository ppa:danielrichter2007/grub-customizer
-sudo apt-get update
-sudo apt-get install grub-customizer -y
-
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 sudo apt update
 sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash -y
@@ -68,11 +64,6 @@ sudo apt install shutter -y
 sudo apt-get install network-manager-openvpn-gnome
 sudo apt-get install network-manager-openvpn
 sudo apt-get install network-manager-pptp
-
-sudo apt update
-sudo apt upgrade
-sudo apt install usb-creator-gtk
-
 
 gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
 sudo echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\]'" >>~/.bashrc
@@ -130,18 +121,14 @@ done
 echo "Add your rsa key to github!"
 read -p "Press [enter] to continue"
 
-
-
 sudo apt install chrome-gnome-shell
 cd ~/Dropbox/scripts/gnomeExtensions/
 ./install-gnome-extensions.sh --enable --file gExtensions
 cd
 
-
 sudo apt-get install curl python-software-properties
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install -y nodejs
-
 
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -150,10 +137,6 @@ sudo apt-get update && sudo apt-get install yarn
 sudo add-apt-repository ppa:mc3man/mpv-tests
 sudo apt update && sudo apt install mpv
 
-
-wget "https://updates.getmailspring.com/download?platform=linuxDeb"
-sudo gdebi download\?platform\=linuxDeb
-
 sudo apt update
 sudo apt install software-properties-common apt-transport-https wget
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
@@ -161,37 +144,26 @@ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/v
 sudo apt update
 sudo apt install code
 
-
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 2EBF997C15BDA244B6EBF5D84773BD5E130D1D45
 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt-get update
 sudo apt-get install spotify-client
 
-
 sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt-get update
 sudo apt-get install libreoffice
 
-
-sudo apt-get remove docker docker-engine docker.io
-sudo apt install docker.io
-sudo usermod -aG docker ${USER}
-
-
 sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-
 sudo apt install deluge -y
 
+sudo apt install texlive-full -y
+sudo apt-get install texlive-bibtex-extra biber -y
 
-sudo apt install texlive-latex-extra -y
-
-
+sudo apt-get install umbrello -y
 
 sudo apt-get install okular -y
-
-
 sudo apt-get install clementine -y
 
 sudo apt-get install postgresql postgresql-contrib -y
@@ -200,36 +172,29 @@ echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >>/etc/apt/
 sudo apt install vlcwget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo apt-get install postgresql-10
 
-
 sudo apt-get install pinta -y
-
 
 wget "https://github.com/Kilian/fromscratch/releases/download/v1.4.3/FromScratch_1.4.3_amd64.deb"
 sudo gdebi FromScratch_1.4.3_amd64.deb -y
 
-
 sudo apt install gpodder
-
 
 wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
 sudo apt install ./slack-desktop-*.deb
 
+sudo apt install '/home/helgi/Dropbox/software/ulauncher_4.4.0.r1_all.deb'
 
-
-sudo cp ~/Dropbox/settingsFiles/RadioTray/bookmarks.xml /usr/share/radiotray
-
-
+sudo apt install '/home/helgi/Dropbox/software/radiotray-ng_0.2.6_ubuntu_18.04_amd64.deb'
+sudo cp ~/Dropbox/settingsFiles/radiotray-ng/bookmarks.json /usr/share/radiotray-ng
 
 sudo apt install flatpak
 sudo apt install gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub org.gabmus.hydrapaper
 
-
 sudo snap install postman
 sudo snap install squirrelsql
 sudo snap install gifcurry
-
 
 sudo cp ~/Dropbox/scripts/functions /usr/local/bin
 sudo cp ~/Dropbox/scripts/alias /usr/local/bin
@@ -238,7 +203,6 @@ sudo echo "source /usr/local/bin/alias" >>~/.bashrc
 sudo echo "source /usr/local/bin/functions" >>~/.bashrc
 sudo echo "source /usr/local/bin/techcare" >>~/.bashrc
 sudo cp -r ~/Dropbox/wallpapers ~/Pictures
-
 
 case $HOSTNAME in
     helgi-u-pc)
@@ -252,14 +216,11 @@ case $HOSTNAME in
         sudo echo "source /usr/local/bin/directoriesLaptop" >>~/.bashrc
         sudo cp -f '/mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar' /usr/local/bin/
         sudo echo "/usr/local/bin/calendar" >>~/.bashrc
-        cd ~/Dropbox/scripts/
-        ./techcareInstall
     ;;
     *) echo "How did I get in the middle of nowhere?" ;;
 esac
 
 source ~/.bashrc
-
 
 sudo rm ~/Dropbox/scripts/download?platform=linuxDeb
 sudo rm ~/Dropbox/scripts/FromScratch_1.4.3_amd64.deb
