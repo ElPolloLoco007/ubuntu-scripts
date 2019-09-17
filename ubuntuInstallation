@@ -8,7 +8,7 @@ echo "---------------------------------------------------"
 date
 echo "---------------------------------------------------"
 echo "Installation BASH Script For Ubuntu 18.04.2 LTS"
-echo "v1.0 (04-07-2019)"
+echo "v1.2 (04-07-2019)"
 echo "---------------------------------------------------"
 echo ""
 echo ""
@@ -19,6 +19,8 @@ echo "Add LASTPASS to Firefox"
 read -p "Press [enter] to continue:"
 echo "Login your Firefox USER"
 read -p "Press [enter] to continue:"
+read -p "Try the yes command to accept all yes! see in file"
+#read "yes "yes" | script.sh"
 
 countdown() (
     IFS=:
@@ -158,9 +160,6 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 sudo apt install deluge -y
 
-sudo apt install texlive-full -y
-sudo apt-get install texlive-bibtex-extra biber -y
-
 sudo apt-get install umbrello -y
 
 sudo apt-get install okular -y
@@ -182,19 +181,15 @@ sudo apt install gpodder
 wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
 sudo apt install ./slack-desktop-*.deb
 
+#debs from dropbox software
+#------------------------
 sudo apt install '/home/helgi/Dropbox/software/ulauncher_4.4.0.r1_all.deb'
 
 sudo apt install '/home/helgi/Dropbox/software/radiotray-ng_0.2.6_ubuntu_18.04_amd64.deb'
 sudo cp ~/Dropbox/settingsFiles/radiotray-ng/bookmarks.json /usr/share/radiotray-ng
 
-sudo apt install flatpak
-sudo apt install gnome-software-plugin-flatpak
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub org.gabmus.hydrapaper
-
-sudo snap install postman
-sudo snap install squirrelsql
-sudo snap install gifcurry
+sudo apt install '/home/helgi/Dropbox/software/steam_latest.deb'
+#------------------------
 
 sudo cp ~/Dropbox/scripts/functions /usr/local/bin
 sudo cp ~/Dropbox/scripts/alias /usr/local/bin
@@ -204,18 +199,23 @@ sudo echo "source /usr/local/bin/functions" >>~/.bashrc
 sudo echo "source /usr/local/bin/techcare" >>~/.bashrc
 sudo cp -r ~/Dropbox/wallpapers ~/Pictures
 
+echo "file:///home/helgi/Dropbox" >> ~/.config/gtk-3.0/bookmarks
+
 case $HOSTNAME in
     helgi-u-pc)
         sudo cp ~/Dropbox/scripts/directoriesPC /usr/local/bin
         sudo echo "source /usr/local/bin/directoriesPC" >>~/.bashrc
         sudo cp /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++/calendar/bin/calendar /usr/local/bin
         sudo echo "/usr/local/bin/calendar" >>~/.bashrc
+        echo "file:///mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects"  >> ~/.config/gtk-3.0/bookmarks
     ;;
     helgi-u-laptop)
         sudo cp ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
         sudo echo "source /usr/local/bin/directoriesLaptop" >>~/.bashrc
         sudo cp -f '/mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar' /usr/local/bin/
         sudo echo "/usr/local/bin/calendar" >>~/.bashrc
+        echo "file:///mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects"  >> ~/.config/gtk-3.0/bookmarks
+        
     ;;
     *) echo "How did I get in the middle of nowhere?" ;;
 esac
@@ -234,7 +234,23 @@ sudo rm ~/packages-microsoft-prod.deb
 sudo rm ~/skypeforlinux-64.deb
 sudo rm ~/slack-desktop-3.3.8-amd64.deb
 
+#Snaps
+sudo snap install postman
+sudo snap install squirrelsql
+sudo snap install gifcurry
+
+#dual wallpaper
+sudo apt install flatpak
+sudo apt install gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.gabmus.hydrapaper
+
+#Last since takes forever
+sudo apt install texlive-full -y
+sudo apt-get install texlive-bibtex-extra biber -y
+
 echo "---------------------------------------------------"
 duration=$SECONDS
 echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
+echo "Please Reboot!"
 echo "---------------------------------------------------"
