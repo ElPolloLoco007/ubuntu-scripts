@@ -1,51 +1,51 @@
 #!/bin/bash
+echo "======Nodejs======"
+sudo apt-get remove nodejs
+sudo apt-get purge nodejs
+cd ~
+sudo apt install curl
+curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
+sudo apt install nodejs
+nodejs --version
+read -p "Continuing in 3 seconds..." -t 3
 
-SECONDS=0
-COUNTER=1
-END=27
+sudo apt-get remove docker docker-engine docker.io
+sudo apt install docker.io
+sudo usermod -aG docker ${USER}
 
-echo "---------------------------------------------------"
-date
-echo "---------------------------------------------------"
-echo "Installation BASH Script For Ubuntu 18.04.2 LTS"
-echo "v1.2 (04-07-2019)"
-echo "---------------------------------------------------"
-echo ""
-echo ""
-echo "---------Before starting---------"
-echo "Install DROPBOX"
-read -p "Press [enter] to continue:"
-echo "Add LASTPASS to Firefox"
-read -p "Press [enter] to continue:"
-echo "Login your Firefox USER"
-read -p "Press [enter] to continue:"
-read -p "Try the yes command to accept all yes! see in file"
-#read "yes "yes" | script.sh"
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
-countdown() (
-    IFS=:
-    set -- $*
-    secs=$((${1#0} * 3600 + ${2#0} * 60 + ${3#0}))
-    while [ $secs -gt 0 ]; do
-        sleep 1 &
-        printf "\r%02d:%02d:%02d" $((secs / 3600)) $(((secs / 60) % 60)) $((secs % 60))
-        secs=$(($secs - 1))
-        wait
+echo -p "=====Awscli====="
+sudo apt install awscli
+aws configure
+
+techcarerepos() {
+    cd ~
+    echo "Example folder destination: Desktop/techcare"
+    while read -ep "Enter folder path location: " file_dir; do
+        if [ -d "${file_dir}" ]; then
+            echo "${file_dir} already exists - please enter a valid directory path."
+        else
+            mkdir -p "${file_dir}"
+            cd ${file_dir}
+            git clone git@github.com:techcare-fo/api.git
+            git clone git@github.com:techcare-fo/app.git
+            break
+        fi
     done
-    echo
-)
-echo "Installation starts in 5 seconds!"
-countdown "00:00:5" # 10 sec
+}
 
-echo "HERE WE GO!"
-sleep 2
-
-sudo ubuntu-drivers autoinstall
-
-sudo apt install curl -y
-sudo apt install nano -y
-
-sudo apt-get install terminator -y
+echo "Do you wish to clone techcare repos api/app?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes)
+            techcarerepos
+            break
+        ;;
+        No) break ;;
+    esac
+done
 sudo mkdir ~/.config/terminator
 sudo cp ~/Dropbox/settingsFiles/TerminatorConfig/config ~/.config/terminator/
 
@@ -56,16 +56,19 @@ sudo apt install gnome-tweak-tool -y
 sudo snap install htop -y
 sudo apt-get install locate -y
 
+sudo apt-get install curl python-software-properties
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 sudo apt update
 sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash -y
 
-sudo add-apt-repository ppa:linuxuprising/shutter
-sudo apt install shutter -y
 
-sudo apt-get install network-manager-openvpn-gnome
-sudo apt-get install network-manager-openvpn
-sudo apt-get install network-manager-pptp
 
 gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
 sudo echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\]'" >>~/.bashrc
@@ -75,6 +78,12 @@ git config --global user.name "Helgi Poulsen"
 sudo gpasswd --add ${USER} dialout
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 fs.inotify.max_user_watches=524288
+sudo sed -ibak -e s/^enabled\=1$/enabled\=0/ /etc/default/apport
+
+sudo apt install chrome-gnome-shell
+cd ~/Dropbox/scripts/gnomeExtensions/
+./install-gnome-extensions.sh --enable --file gExtensions
+cd
 
 rsakey() {
     echo "======RSAKEY======"
@@ -123,22 +132,20 @@ done
 echo "Add your rsa key to github!"
 read -p "Press [enter] to continue"
 
-sudo apt install chrome-gnome-shell
-cd ~/Dropbox/scripts/gnomeExtensions/
-./install-gnome-extensions.sh --enable --file gExtensions
-cd
+#Shutter
+sudo add-apt-repository ppa:linuxuprising/shutter
+sudo apt install shutter -y
 
-sudo apt-get install curl python-software-properties
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-sudo apt-get install -y nodejs
+#Nordvpn
+sudo apt-get install network-manager-openvpn-gnome
+sudo apt-get install network-manager-openvpn
+sudo apt-get install network-manager-pptp
 
-curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update && sudo apt-get install yarn
-
+#VideoPlayer
 sudo add-apt-repository ppa:mc3man/mpv-tests
 sudo apt update && sudo apt install mpv
 
+#Code
 sudo apt update
 sudo apt install software-properties-common apt-transport-https wget
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
@@ -146,51 +153,62 @@ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/v
 sudo apt update
 sudo apt install code
 
+#Spotify
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 2EBF997C15BDA244B6EBF5D84773BD5E130D1D45
 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt-get update
 sudo apt-get install spotify-client
 
+#Libreoffice
 sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt-get update
 sudo apt-get install libreoffice
 
-sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-
+#Torrents
 sudo apt install deluge -y
 
+#UML Diagrams
 sudo apt-get install umbrello -y
 
+#PDF
 sudo apt-get install okular -y
+
+#Audio Player
 sudo apt-get install clementine -y
 
+#SQL Postgres
 sudo apt-get install postgresql postgresql-contrib -y
-
 echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >>/etc/apt/sources.list.d/pgdg.list
 sudo apt install vlcwget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo apt-get install postgresql-10
 
+#Paint
 sudo apt-get install pinta -y
 
+#Taking notes
 wget "https://github.com/Kilian/fromscratch/releases/download/v1.4.3/FromScratch_1.4.3_amd64.deb"
 sudo gdebi FromScratch_1.4.3_amd64.deb -y
 
+#Podcast
 sudo apt install gpodder
 
+#Communication
 wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
 sudo apt install ./slack-desktop-*.deb
 
 #debs from dropbox software
-#------------------------
+#Quick launch application
 sudo apt install '/home/helgi/Dropbox/software/ulauncher_4.4.0.r1_all.deb'
 
+#Online Radio
 sudo apt install '/home/helgi/Dropbox/software/radiotray-ng_0.2.6_ubuntu_18.04_amd64.deb'
 sudo cp ~/Dropbox/settingsFiles/radiotray-ng/bookmarks.json /usr/share/radiotray-ng
 
+#Gaming
 sudo apt install '/home/helgi/Dropbox/software/steam_latest.deb'
 #------------------------
 
+#Scripts
 sudo cp ~/Dropbox/scripts/functions /usr/local/bin
 sudo cp ~/Dropbox/scripts/alias /usr/local/bin
 sudo cp ~/Dropbox/scripts/techcare /usr/local/bin
@@ -199,6 +217,7 @@ sudo echo "source /usr/local/bin/functions" >>~/.bashrc
 sudo echo "source /usr/local/bin/techcare" >>~/.bashrc
 sudo cp -r ~/Dropbox/wallpapers ~/Pictures
 
+#Adding bookmarks to Files overview
 echo "file:///home/helgi/Dropbox" >> ~/.config/gtk-3.0/bookmarks
 
 case $HOSTNAME in
@@ -207,21 +226,27 @@ case $HOSTNAME in
         sudo echo "source /usr/local/bin/directoriesPC" >>~/.bashrc
         sudo cp /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++/calendar/bin/calendar /usr/local/bin
         sudo echo "/usr/local/bin/calendar" >>~/.bashrc
+        
+        #Adding bookmarks to Files overview
         echo "file:///mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects"  >> ~/.config/gtk-3.0/bookmarks
+        echo "file:///mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Downloads"  >> ~/.config/gtk-3.0/bookmarks        
     ;;
     helgi-u-laptop)
         sudo cp ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
         sudo echo "source /usr/local/bin/directoriesLaptop" >>~/.bashrc
         sudo cp -f '/mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar' /usr/local/bin/
         sudo echo "/usr/local/bin/calendar" >>~/.bashrc
-        echo "file:///mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects"  >> ~/.config/gtk-3.0/bookmarks
         
+        #Adding bookmarks to Files overview
+        echo "file:///mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects"  >> ~/.config/gtk-3.0/bookmarks
+        echo "file:///mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Downloads"  >> ~/.config/gtk-3.0/bookmarks        
     ;;
     *) echo "How did I get in the middle of nowhere?" ;;
 esac
 
 source ~/.bashrc
 
+#removing downloaded files
 sudo rm ~/Dropbox/scripts/download?platform=linuxDeb
 sudo rm ~/Dropbox/scripts/FromScratch_1.4.3_amd64.deb
 sudo rm ~/Dropbox/scripts/packages-microsoft-prod.deb
@@ -245,10 +270,13 @@ sudo apt install gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub org.gabmus.hydrapaper
 
-#Last since takes forever
+#Latex
 sudo apt install texlive-full -y
 sudo apt-get install texlive-bibtex-extra biber -y
 
+#Computer info
+sudo apt install neofetch
+neofetch
 echo "---------------------------------------------------"
 duration=$SECONDS
 echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
