@@ -1,5 +1,57 @@
 #!/bin/bash
 
+SECONDS=0
+COUNTER=1
+END=27
+
+echo "---------------------------------------------------"
+date
+echo "---------------------------------------------------"
+echo "Installation BASH Script For Ubuntu 18.04.2 LTS"
+echo "v1.0 (04-07-2019)"
+echo "---------------------------------------------------"
+echo ""
+echo ""
+echo "---------Before starting---------"
+echo "Install DROPBOX"
+read -p "Press [enter] to continue:"
+echo "Add LASTPASS to Firefox"
+read -p "Press [enter] to continue:"
+echo "Login your Firefox USER"
+read -p "Press [enter] to continue:"
+echo "If on PC change in firefox: layout.css.devPixelsPerPx to 1.3"
+read -p "Press [enter] to continue:"
+
+
+countdown() (
+    IFS=:
+    set -- $*
+    secs=$((${1#0} * 3600 + ${2#0} * 60 + ${3#0}))
+    while [ $secs -gt 0 ]; do
+        sleep 1 &
+        printf "\r%02d:%02d:%02d" $((secs / 3600)) $(((secs / 60) % 60)) $((secs % 60))
+        secs=$(($secs - 1))
+        wait
+    done
+    echo
+)
+echo "Installation starts in 5 seconds!"
+countdown "00:00:5" # 10 sec
+
+echo "HERE WE GO!"
+sleep 2
+
+sudo ubuntu-drivers autoinstall
+
+sudo apt install curl -y
+sudo apt install nano -y
+
+sudo apt-get install newsbeuter
+sudo cp ~/Dropbox/settingsFiles/newsbeuter/config ~/.newsbeuter/
+sudo cp ~/Dropbox/settingsFiles/newsbeuter/urls ~/.newsbeuter/
+
+
+sudo apt-get install terminator -y
 sudo mkdir ~/.config/terminator
 sudo cp ~/Dropbox/settingsFiles/TerminatorConfig/config ~/.config/terminator/
 
@@ -183,7 +235,7 @@ case $HOSTNAME in
         
         #Adding bookmarks to Files overview
         echo "file:///mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects"  >> ~/.config/gtk-3.0/bookmarks
-        echo "file:///mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Downloads"  >> ~/.config/gtk-3.0/bookmarks        
+        echo "file:///mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Downloads"  >> ~/.config/gtk-3.0/bookmarks
     ;;
     helgi-u-laptop)
         sudo cp ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
@@ -193,7 +245,7 @@ case $HOSTNAME in
         
         #Adding bookmarks to Files overview
         echo "file:///mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects"  >> ~/.config/gtk-3.0/bookmarks
-        echo "file:///mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Downloads"  >> ~/.config/gtk-3.0/bookmarks        
+        echo "file:///mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Downloads"  >> ~/.config/gtk-3.0/bookmarks
     ;;
     *) echo "How did I get in the middle of nowhere?" ;;
 esac

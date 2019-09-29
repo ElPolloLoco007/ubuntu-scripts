@@ -11,38 +11,56 @@ mcd() {
 }
 
 update() {
-    sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get dist-upgrade
-    
     sudo cp -f ~/Dropbox/scripts/functions /usr/local/bin
     sudo cp -f ~/Dropbox/scripts/alias /usr/local/bin
+    echo "functions and scripts updated"
+    
+    sudo cp ~/Dropbox/settingsFiles/newsbeuter/config ~/.newsbeuter/
+    sudo cp ~/Dropbox/settingsFiles/newsbeuter/urls ~/.newsbeuter/
+    echo "Newsbeuter updated"
+    
+    sudo cp ~/Dropbox/settingsFiles/TerminatorConfig/config ~/.config/terminator/
+    echo "Terminator updated"
     
     sudo cp -f -r ~/Dropbox/wallpapers/ ~/Pictures/
-    
-    sudo du -sh /var/cache/apt/archives
-    sudo apt-get clean
-    sudo apt-get autoremove --purge
-    
-    echo ""
+    echo "Wallpapers updated"
     
     case $HOSTNAME in
         helgi-u-pc)
             sudo cp -f ~/Dropbox/scripts/directoriesPC /usr/local/bin
+            echo "directoriesPC updated"
+            
             sudo cp -f /mnt/d232cad4-4a88-4576-a779-e86ca93d0612/Projects/C++/calendar/bin/calendar /usr/local/bin
+            echo "c++Calendar updated"
         ;;
         
         helgi-u-laptop)
             sudo cp -f ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
+            echo "directoriesLaptop updated"
+            
             sudo rm /usr/local/bin/techcare
             sudo cp ~/Dropbox/scripts/techcare /usr/local/bin
-            sudo cp -f /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar /usr/local/bin
+            echo "techcare functions updated"
             
+            sudo cp -f /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar /usr/local/bin
+            echo "c++Calendar updated"
         ;;
         
-        *) echo "How did I get in the middle of nowhere?" ;;
+        *) echo "No host name found!!" ;;
     esac
+    
     source ~/.bashrc
+    
+    sudo apt-get update
+    sudo apt-get upgrade
+    sudo apt-get dist-upgrade
+    echo "System updated"
+    echo ""
+    
+    sudo du -sh /var/cache/apt/archives
+    sudo apt-get clean
+    sudo apt-get autoremove --purge
+    echo "System cleaned"
 }
 
 function calendar() {
