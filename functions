@@ -46,7 +46,7 @@ update() {
 }
 
 function calendar() {
-    '/usr/local/bin/calendar' $@    
+    '/usr/local/bin/calendar' $@
 }
 
 function shutDownTimer() {
@@ -98,4 +98,9 @@ function shutDownTimer() {
 bwordcount() {
     cd '/mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/React/bachelor-report/Reactive User Interface for Px-Statbanks'
     pdftotext main.pdf - | tr -d '.' | wc -w
+}
+
+replaceWords(){
+    sed -i -e 's/id/key/g' /home/helgi/Desktop/test/src/Data/Menu.json
+    sed -i -e 's/text/label/g' /home/helgi/Desktop/test/src/Data/Menu.json
 }
