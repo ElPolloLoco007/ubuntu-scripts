@@ -46,9 +46,9 @@ sudo ubuntu-drivers autoinstall
 sudo apt install curl -y
 sudo apt install nano -y
 
-sudo apt-get install newsbeuter
-sudo cp ~/Dropbox/settingsFiles/newsbeuter/config ~/.newsbeuter/
-sudo cp ~/Dropbox/settingsFiles/newsbeuter/urls ~/.newsbeuter/
+sudo snap install newsboat
+sudo cp ~/Dropbox/settingsFiles/newsbeuter/config ~/home/helgi/snap/newsboat/1471/.newsboat
+sudo cp ~/Dropbox/settingsFiles/newsbeuter/urls ~/home/helgi/snap/newsboat/1471/.newsboat/
 
 
 sudo apt-get install terminator -y
@@ -137,6 +137,13 @@ done
 
 echo "Add your rsa key to github!"
 read -p "Press [enter] to continue"
+
+#youtube-dl
+sudo apt-get install python-pip -y
+sudo pip install youtube-dl
+touch ~/.config/youtube-dl.conf
+echo "--output \"~/Downloads/%(title)s.%(ext)s\"" >> ~/.config/youtube-dl.conf
+
 
 #Shutter
 sudo add-apt-repository ppa:linuxuprising/shutter

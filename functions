@@ -122,3 +122,15 @@ replaceWords(){
     sed -i -e 's/id/key/g' /home/helgi/Desktop/test/src/Data/Menu.json
     sed -i -e 's/text/label/g' /home/helgi/Desktop/test/src/Data/Menu.json
 }
+
+youtubeToAudio(){
+    youtube-dl -x --audio-format mp3  $1
+}
+
+youtubePlayList(){
+    youtube-dl -f 136+140 -o '~/Downloads/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
+}
+
+youtubeVideo(){
+    youtube-dl $1
+}
