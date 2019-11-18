@@ -227,6 +227,10 @@ sudo apt install '/home/helgi/Dropbox/software/Simplenote-linux-1.10.0-amd64.deb
 #Skype
 sudo apt install '/home/helgi/Dropbox/software/skypeforlinux-64.deb'
 
+#mailSpring
+sudo apt install 'mailspring-1.7.2-amd64.deb'
+
+
 #Gaming
 sudo apt install '/home/helgi/Dropbox/software/steam_latest.deb'
 #------------------------
