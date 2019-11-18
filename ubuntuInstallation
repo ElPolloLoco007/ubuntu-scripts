@@ -46,10 +46,6 @@ sudo ubuntu-drivers autoinstall
 sudo apt install curl -y
 sudo apt install nano -y
 
-sudo snap install newsboat
-sudo cp ~/Dropbox/settingsFiles/newsbeuter/config ~/home/helgi/snap/newsboat/1471/.newsboat
-sudo cp ~/Dropbox/settingsFiles/newsbeuter/urls ~/home/helgi/snap/newsboat/1471/.newsboat/
-
 
 sudo apt-get install terminator -y
 sudo mkdir ~/.config/terminator
@@ -76,6 +72,11 @@ sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash -y
 
 
 
+
+
+gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+gsettings set org.gnome.shell.extensions.dash-to-dock show-trash true
+gsettings set org.gnome.shell.extensions.desktop-icons show-trash false
 gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
 sudo echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\]'" >>~/.bashrc
 sudo chown -R $USER: $HOME
@@ -144,6 +145,10 @@ sudo pip install youtube-dl
 touch ~/.config/youtube-dl.conf
 echo "--output \"~/Downloads/%(title)s.%(ext)s\"" >> ~/.config/youtube-dl.conf
 
+#RSS for terminal
+sudo snap install newsboat
+sudo cp ~/Dropbox/settingsFiles/newsboat/config ~/snap/newsboat/1471/.newsboat
+sudo cp ~/Dropbox/settingsFiles/newsboat/urls ~/snap/newsboat/1471/.newsboat
 
 #Shutter
 sudo add-apt-repository ppa:linuxuprising/shutter
@@ -157,6 +162,7 @@ sudo apt-get install network-manager-pptp
 #VideoPlayer
 sudo add-apt-repository ppa:mc3man/mpv-tests
 sudo apt update && sudo apt install mpv
+sudo cp -f  ~/Dropbox/settingsFiles/mpv.conf /etc/mpv
 
 #Code
 sudo apt update
@@ -213,9 +219,13 @@ sudo apt install ./slack-desktop-*.deb
 #Quick launch application
 sudo apt install '/home/helgi/Dropbox/software/ulauncher_4.4.0.r1_all.deb'
 
-#Online Radio
-sudo apt install '/home/helgi/Dropbox/software/radiotray-ng_0.2.6_ubuntu_18.04_amd64.deb'
-sudo cp ~/Dropbox/settingsFiles/radiotray-ng/bookmarks.json /usr/share/radiotray-ng
+#Radiotray-ng
+sudo apt install '/home/helgi/Dropbox/software/radiotray-ng_0.2.7_ubuntu_19.10_amd64.deb'
+sudo cp ~/Dropbox/settingsFiles/radiotray/bookmarks.json ~/.config/radiotray-ng
+#simplenote
+sudo apt install '/home/helgi/Dropbox/software/Simplenote-linux-1.10.0-amd64.deb'
+#Skype
+sudo apt install '/home/helgi/Dropbox/software/skypeforlinux-64.deb'
 
 #Gaming
 sudo apt install '/home/helgi/Dropbox/software/steam_latest.deb'
@@ -275,7 +285,7 @@ sudo rm ~/slack-desktop-3.3.8-amd64.deb
 #Snaps
 sudo snap install postman
 sudo snap install squirrelsql
-sudo snap install gifcurry
+sudo snap install gitkraken
 
 #dual wallpaper
 sudo apt install flatpak
@@ -283,9 +293,48 @@ sudo apt install gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub org.gabmus.hydrapaper
 
-#Latex
-sudo apt install texlive-full -y
-sudo apt-get install texlive-bibtex-extra biber -y
+bigDownloads() {
+    echo "======Big Downloads======"
+    echo "1.Generate key"
+    echo "2.show key"
+    echo "3.exit"
+    
+    while :; do
+        read INPUT_STRING
+        case $INPUT_STRING in
+            1)
+                #eclipse
+                sudo snap install eclipse --classic
+                #Latex
+                sudo apt install texlive-full -y
+                sudo apt-get install texlive-bibtex-extra biber -y
+                #unity
+                sudo apt install gdebi
+                wget http://beta.unity3d.com/download/ee86734cf592/unity-editor_amd64-2017.2.0f3.deb
+                sudo gdebi unity-editor_amd64-2017.2.0f3.deb
+            ;;
+            
+            2)
+                break
+            ;;
+            *)
+                echo "pick 1 or 2"
+            ;;
+        esac
+    done
+    echo
+}
+
+echo "==Do you wish to the big downloads?=="
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes)
+            bigDownloads
+            break
+        ;;
+        No) break ;;
+    esac
+done
 
 #Computer info
 sudo apt install neofetch

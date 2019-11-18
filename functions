@@ -15,10 +15,16 @@ update() {
     sudo cp -f ~/Dropbox/scripts/alias /usr/local/bin
     echo "functions and scripts updated"
     
-    sudo cp ~/Dropbox/settingsFiles/newsbeuter/config ~/.newsbeuter/
-    sudo cp ~/Dropbox/settingsFiles/newsbeuter/urls ~/.newsbeuter/
-    echo "Newsbeuter updated"
+    sudo cp -f  ~/Dropbox/settingsFiles/mpv.conf /etc/mpv
+    echo "MPV player updated"
     
+    sudo cp ~/Dropbox/settingsFiles/newsboat/config ~/snap/newsboat/1471/.newsboat
+    sudo cp ~/Dropbox/settingsFiles/newsboat/urls ~/snap/newsboat/1471/.newsboat
+    echo "Newsboat updated"
+    
+    sudo cp ~/Dropbox/settingsFiles/radiotray/bookmarks.json ~/.config/radiotray-ng
+    echo "Radiotray-ng updated"
+
     sudo cp ~/Dropbox/settingsFiles/TerminatorConfig/config ~/.config/terminator/
     echo "Terminator updated"
     
