@@ -45,7 +45,7 @@ sudo ubuntu-drivers autoinstall
 
 sudo apt install curl -y
 sudo apt install nano -y
-
+sudo apt install ansiweather
 
 sudo apt-get install terminator -y
 sudo mkdir ~/.config/terminator
@@ -146,7 +146,8 @@ touch ~/.config/youtube-dl.conf
 echo "--output \"~/Downloads/%(title)s.%(ext)s\"" >> ~/.config/youtube-dl.conf
 
 #RSS for terminal
-sudo snap install newsboat
+sudo apt install newsboat
+
 sudo cp ~/Dropbox/settingsFiles/newsboat/config ~/snap/newsboat/1471/.newsboat
 sudo cp ~/Dropbox/settingsFiles/newsboat/urls ~/snap/newsboat/1471/.newsboat
 
@@ -297,11 +298,13 @@ sudo apt install gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub org.gabmus.hydrapaper
 
+sudo apt install neofetch
+
 bigDownloads() {
     echo "======Big Downloads======"
-    echo "1.Generate key"
-    echo "2.show key"
-    echo "3.exit"
+    echo "1.Yes"
+    echo "2.No"
+    
     
     while :; do
         read INPUT_STRING
@@ -341,7 +344,7 @@ select yn in "Yes" "No"; do
 done
 
 #Computer info
-sudo apt install neofetch
+
 neofetch
 echo "---------------------------------------------------"
 duration=$SECONDS

@@ -1,4 +1,14 @@
 #!/bin/bash
+functions(){
+    echo "mcd"
+    echo "update"
+    echo "calendar"
+    echo "shutDownTimer"
+    echo "scripts"
+    echo "utubeAudio"
+    echo "utubeVideo"
+    echo "utubePlaylist"
+}
 
 function cd() {
     builtin cd "$@" && ls -F
@@ -18,13 +28,13 @@ update() {
     sudo cp -f  ~/Dropbox/settingsFiles/mpv.conf /etc/mpv
     echo "MPV player updated"
     
-    sudo cp ~/Dropbox/settingsFiles/newsboat/config ~/snap/newsboat/1471/.newsboat
-    sudo cp ~/Dropbox/settingsFiles/newsboat/urls ~/snap/newsboat/1471/.newsboat
+    sudo cp ~/Dropbox/settingsFiles/newsboat/config ~/.newsboat/
+    sudo cp ~/Dropbox/settingsFiles/newsboat/urls ~/.newsboat/
     echo "Newsboat updated"
     
     sudo cp ~/Dropbox/settingsFiles/radiotray/bookmarks.json ~/.config/radiotray-ng
     echo "Radiotray-ng updated"
-
+    
     sudo cp ~/Dropbox/settingsFiles/TerminatorConfig/config ~/.config/terminator/
     echo "Terminator updated"
     
@@ -119,24 +129,20 @@ function shutDownTimer() {
     fi
 }
 
-bwordcount() {
-    cd '/mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/React/bachelor-report/Reactive User Interface for Px-Statbanks'
-    pdftotext main.pdf - | tr -d '.' | wc -w
+scripts(){
+    code ~/Dropbox/scripts
 }
 
-replaceWords(){
-    sed -i -e 's/id/key/g' /home/helgi/Desktop/test/src/Data/Menu.json
-    sed -i -e 's/text/label/g' /home/helgi/Desktop/test/src/Data/Menu.json
-}
 
-youtubeToAudio(){
+
+utubeAudio(){
     youtube-dl -x --audio-format mp3  $1
 }
 
-youtubePlayList(){
+utubePlayList(){
     youtube-dl -f 136+140 -o '~/Downloads/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' $1
 }
 
-youtubeVideo(){
+utubeVideo(){
     youtube-dl $1
 }
