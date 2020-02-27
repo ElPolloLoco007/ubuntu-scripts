@@ -74,7 +74,6 @@ sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash -y
 
 
 
-gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 gsettings set org.gnome.shell.extensions.dash-to-dock show-trash true
 gsettings set org.gnome.shell.extensions.desktop-icons show-trash false
 gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
@@ -155,10 +154,7 @@ sudo cp ~/Dropbox/settingsFiles/newsboat/urls ~/snap/newsboat/1471/.newsboat
 sudo add-apt-repository ppa:linuxuprising/shutter
 sudo apt install shutter -y
 
-#Nordvpn
-sudo apt-get install network-manager-openvpn-gnome
-sudo apt-get install network-manager-openvpn
-sudo apt-get install network-manager-pptp
+
 
 #VideoPlayer
 sudo add-apt-repository ppa:mc3man/mpv-tests
@@ -183,6 +179,14 @@ sudo apt-get install spotify-client
 sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt-get update
 sudo apt-get install libreoffice
+
+#pgAdmin4
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc |
+sudo apt-key add -
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/
+`lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+sudo apt-get update
+sudo apt-get install pgadmin4 pgadmin4-apache2 -y
 
 #Torrents
 sudo apt install deluge -y
@@ -212,9 +216,6 @@ sudo gdebi FromScratch_1.4.3_amd64.deb -y
 #Podcast
 sudo apt install gpodder
 
-#Communication
-wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
-sudo apt install ./slack-desktop-*.deb
 
 #debs from dropbox software
 #Quick launch application
@@ -279,17 +280,14 @@ sudo rm ~/Dropbox/scripts/download?platform=linuxDeb
 sudo rm ~/Dropbox/scripts/FromScratch_1.4.3_amd64.deb
 sudo rm ~/Dropbox/scripts/packages-microsoft-prod.deb
 sudo rm ~/Dropbox/scripts/skypeforlinux-64.deb
-sudo rm ~/Dropbox/scripts/slack-desktop-3.3.8-amd64.deb
 
 sudo rm ~/download?platform=linuxDeb
 sudo rm ~/FromScratch_1.4.3_amd64.deb
 sudo rm ~/packages-microsoft-prod.deb
 sudo rm ~/skypeforlinux-64.deb
-sudo rm ~/slack-desktop-3.3.8-amd64.deb
 
 #Snaps
 sudo snap install postman
-sudo snap install squirrelsql
 sudo snap install gitkraken
 
 #dual wallpaper
