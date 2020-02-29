@@ -32,9 +32,6 @@ update() {
     sudo cp ~/Dropbox/settingsFiles/newsboat/urls ~/.newsboat/
     echo "Newsboat updated"
     
-    sudo cp ~/Dropbox/settingsFiles/radiotray/bookmarks.json ~/.config/radiotray-ng
-    echo "Radiotray-ng updated"
-    
     sudo cp ~/Dropbox/settingsFiles/TerminatorConfig/config ~/.config/terminator/
     echo "Terminator updated"
     
@@ -54,9 +51,6 @@ update() {
             sudo cp -f ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
             echo "directoriesLaptop updated"
             
-            sudo rm /usr/local/bin/techcare
-            sudo cp ~/Dropbox/scripts/techcare /usr/local/bin
-            echo "techcare functions updated"
             
             sudo cp -f /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar /usr/local/bin
             echo "c++Calendar updated"
