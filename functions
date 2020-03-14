@@ -52,7 +52,7 @@ update() {
             echo "directoriesLaptop updated"
             
             
-            sudo cp -f /mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar /usr/local/bin
+            sudo cp -f /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/C++/calendar/bin/calendar /usr/local/bin
             echo "c++Calendar updated"
         ;;
         

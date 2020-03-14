@@ -71,8 +71,6 @@ sudo apt update
 sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash -y
 
 
-gsettings set org.gnome.shell.extensions.dash-to-dock show-trash true
-gsettings set org.gnome.shell.extensions.desktop-icons show-trash false
 gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
 sudo echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\]'" >>~/.bashrc
 sudo chown -R $USER: $HOME
@@ -87,6 +85,8 @@ sudo apt install chrome-gnome-shell
 cd ~/Dropbox/scripts/gnomeExtensions/
 ./install-gnome-extensions.sh --enable --file gExtensions
 cd
+
+sudo apt-get install postgresql postgresql-contrib
 
 rsakey() {
     echo "======RSAKEY======"
@@ -177,11 +177,6 @@ sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt-get update
 sudo apt-get install libreoffice
 
-#pgAdmin4
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
-sudo apt update
-sudo apt install pgadmin4 pgadmin4-apache2
 
 #Torrents
 sudo apt install deluge -y
@@ -250,12 +245,12 @@ case $HOSTNAME in
     helgi-u-laptop)
         sudo cp ~/Dropbox/scripts/directoriesLaptop /usr/local/bin
         sudo echo "source /usr/local/bin/directoriesLaptop" >>~/.bashrc
-        sudo cp -f '/mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects/C++/calendar/bin/calendar' /usr/local/bin/
+        sudo cp -f '/mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/C++/calendar/bin/calendar' /usr/local/bin/
         sudo echo "/usr/local/bin/calendar" >>~/.bashrc
         
         #Adding bookmarks to Files overview
-        echo "file:///mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Projects"  >> ~/.config/gtk-3.0/bookmarks
-        echo "file:///mnt/9c17aad5-7b2f-453b-9ae2-085895278529/Downloads"  >> ~/.config/gtk-3.0/bookmarks
+        echo "file:///mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects"  >> ~/.config/gtk-3.0/bookmarks
+        echo "file:///mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Downloads"  >> ~/.config/gtk-3.0/bookmarks
     ;;
     *) echo "How did I get in the middle of nowhere?" ;;
 esac
@@ -283,50 +278,16 @@ sudo apt install gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub org.gabmus.hydrapaper
 
+sudo snap install android-studio --classic
+
+sudo apt install texlive-full -y
+sudo apt-get install texlive-bibtex-extra biber -y
+
 sudo apt install neofetch
 
-bigDownloads() {
-    echo "======Big Downloads======"
-    echo "1.Yes"
-    echo "2.No"
-    
-    
-    while :; do
-        read INPUT_STRING
-        case $INPUT_STRING in
-            1)
-                
-                
-                #Latex
-                sudo apt install texlive-full -y
-                sudo apt-get install texlive-bibtex-extra biber -y
-                #unity
-                sudo apt install gdebi
-                wget http://beta.unity3d.com/download/ee86734cf592/unity-editor_amd64-2017.2.0f3.deb
-                sudo gdebi unity-editor_amd64-2017.2.0f3.deb
-            ;;
-            
-            2)
-                break
-            ;;
-            *)
-                echo "pick 1 or 2"
-            ;;
-        esac
-    done
-    echo
-}
 
-echo "==Do you wish to the big downloads?=="
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes)
-            bigDownloads
-            break
-        ;;
-        No) break ;;
-    esac
-done
+
+
 
 #Computer info
 
