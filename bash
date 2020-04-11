@@ -11,5 +11,6 @@ else
     printf "${YELLOW}VPN:${NC} ${RED} OFF${NC}"
 fi
 
-
+curl -s http://whatismycountry.com/ |
+  sed -n 's|.*,\(.*\)</h3>|\1|p'
 

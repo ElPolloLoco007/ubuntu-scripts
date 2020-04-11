@@ -45,7 +45,7 @@ sudo ubuntu-drivers autoinstall
 
 sudo apt install curl -y
 sudo apt install nano -y
-sudo apt install ansiweather
+sudo apt install ansiweather -y
 
 sudo apt-get install terminator -y
 sudo mkdir ~/.config/terminator
@@ -59,17 +59,21 @@ sudo snap install htop -y
 sudo apt-get install locate -y
 
 sudo apt-get install curl python-software-properties
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
 sudo apt-get install -y nodejs
 
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt-get update && sudo apt-get install yarn
 
+#ip country for calendar c++
+sudo npm install -g @rafaelrinaldi/whereami
+
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 sudo apt update
 sudo apt install adobe-flashplugin browser-plugin-freshplayer-pepperflash -y
-
+sudo apt install npm
+npm install expo-cli --global
 
 gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
 sudo echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\]'" >>~/.bashrc
@@ -80,13 +84,13 @@ sudo gpasswd --add ${USER} dialout
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 fs.inotify.max_user_watches=524288
 sudo sed -ibak -e s/^enabled\=1$/enabled\=0/ /etc/default/apport
-
+sudo apt install virtualenv -y
 sudo apt install chrome-gnome-shell
 cd ~/Dropbox/scripts/gnomeExtensions/
 ./install-gnome-extensions.sh --enable --file gExtensions
 cd
-
-sudo apt-get install postgresql postgresql-contrib
+sudo apt install net-tools -y
+sudo apt-get install postgresql postgresql-contrib -y
 
 rsakey() {
     echo "======RSAKEY======"
@@ -137,12 +141,12 @@ read -p "Press [enter] to continue"
 
 #youtube-dl
 sudo apt-get install python-pip -y
-sudo pip install youtube-dl
+sudo pip install youtube-dl -y
 touch ~/.config/youtube-dl.conf
 echo "--output \"~/Downloads/%(title)s.%(ext)s\"" >> ~/.config/youtube-dl.conf
 
 #RSS for terminal
-sudo apt install newsboat
+sudo apt install newsboat -y
 
 sudo cp ~/Dropbox/settingsFiles/newsboat/config ~/snap/newsboat/1471/.newsboat
 sudo cp ~/Dropbox/settingsFiles/newsboat/urls ~/snap/newsboat/1471/.newsboat
@@ -155,7 +159,7 @@ sudo apt install shutter -y
 
 #VideoPlayer
 sudo add-apt-repository ppa:mc3man/mpv-tests
-sudo apt update && sudo apt install mpv
+sudo apt update && sudo apt install mpv -y
 sudo cp -f  ~/Dropbox/settingsFiles/mpv.conf /etc/mpv
 
 #Code
@@ -164,18 +168,26 @@ sudo apt install software-properties-common apt-transport-https wget
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 sudo apt update
-sudo apt install code
+sudo apt install code -y
 
 #Spotify
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 2EBF997C15BDA244B6EBF5D84773BD5E130D1D45
 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt-get update
-sudo apt-get install spotify-client
+sudo apt-get install spotify-client -y
+
+#Spotify fix for ubuntu 20.04
+echo deb http://se.archive.ubuntu.com/ubuntu trusty main universe | sudo tee /etc/apt/sources.list.d/temp-trusty.list
+echo deb http://security.ubuntu.com/ubuntu trusty-security main universe | sudo tee -a /etc/apt/sources.list.d/temp-trusty.list
+sudo apt update
+sudo apt install libavcodec54 libavformat54
+sudo rm /etc/apt/sources.list.d/temp-trusty.list
+sudo apt update
 
 #Libreoffice
 sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt-get update
-sudo apt-get install libreoffice
+sudo apt-get install libreoffice -y
 
 
 #Torrents
@@ -199,7 +211,7 @@ wget "https://github.com/Kilian/fromscratch/releases/download/v1.4.3/FromScratch
 sudo gdebi FromScratch_1.4.3_amd64.deb -y
 
 #Podcast
-sudo apt install gpodder
+sudo apt install gpodder -y
 
 
 #debs from dropbox software
@@ -210,15 +222,25 @@ sudo apt install '/home/helgi/Dropbox/software/ulauncher_4.4.0.r1_all.deb'
 sudo apt install '/home/helgi/Dropbox/software/radiotray-ng_0.2.7_ubuntu_19.10_amd64.deb'
 sudo cp ~/Dropbox/settingsFiles/radiotray/bookmarks.json ~/.config/radiotray-ng
 
-#Skype
-sudo apt install '/home/helgi/Dropbox/software/skypeforlinux-64.deb'
 
-#mailSpring
-sudo apt install 'mailspring-1.7.2-amd64.deb'
+cd ~/Downloads
 
+#skype
+wget https://repo.skype.com/latest/skypeforlinux-64.deb
+sudo dpkg -i skypeforlinux-64.deb
+sudo apt install -
 
+wget -O discord-0.0.1.deb https://discordapp.com/api/download?platform=linux&format=deb
+sudo dpkg -i discord-0.0.1.deb -y
+
+sudo wget -qnc https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
+sudo dpkg -i /pathToFile/nordvpn-release_1.0.0_all.deb
+sudo apt update
+sudo apt install nordvpn -y
+nordvpn login
+nordvpn connect
 #Gaming
-sudo apt install '/home/helgi/Dropbox/software/steam_latest.deb'
+sudo apt install steam
 #------------------------
 
 #Scripts
@@ -257,33 +279,24 @@ esac
 
 source ~/.bashrc
 
-#removing downloaded files
-sudo rm ~/Dropbox/scripts/download?platform=linuxDeb
-sudo rm ~/Dropbox/scripts/FromScratch_1.4.3_amd64.deb
-sudo rm ~/Dropbox/scripts/packages-microsoft-prod.deb
-sudo rm ~/Dropbox/scripts/skypeforlinux-64.deb
 
-sudo rm ~/download?platform=linuxDeb
-sudo rm ~/FromScratch_1.4.3_amd64.deb
-sudo rm ~/packages-microsoft-prod.deb
-sudo rm ~/skypeforlinux-64.deb
 
 #Snaps
 sudo snap install postman
-sudo snap install gitkraken
+sudo snap install discord
 
 #dual wallpaper
-sudo apt install flatpak
-sudo apt install gnome-software-plugin-flatpak
+sudo apt install flatpak -y
+sudo apt install gnome-software-plugin-flatpak -y
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub org.gabmus.hydrapaper
+flatpak install flathub org.gabmus.hydrapaper -y
 
-sudo snap install android-studio --classic
+sudo snap install android-studio --classic -y
 
 sudo apt install texlive-full -y
 sudo apt-get install texlive-bibtex-extra biber -y
 
-sudo apt install neofetch
+sudo apt install neofetch -y
 
 
 
