@@ -11,6 +11,7 @@ functions(){
     echo "findService"
     echo "killService"
     echo "mic"
+    echo "projects"
     
 }
 
@@ -91,6 +92,51 @@ update() {
 
 function calendar() {
     '/usr/local/bin/calendar' $@
+}
+
+
+function projects() {
+    RED='\033[0;31m'
+    GREEN='\033[0;32m'
+    YELLOW='\033[1;33m'
+    NC='\033[0m' # No Color
+    BLUE='\033[1;34m'
+    
+    ARRAY=()
+    count=0
+    for file in /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/*
+    do
+        
+        printf "* ${GREEN}$(basename $file)${NC}\n"
+        for file in /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/$(basename $file)/*
+        do
+            # echo "$file"
+            ARRAY+=("$file")
+            printf "${BLUE}[$count] "${NC}
+            printf "${YELLOW}$(basename $file)${NC}\n"
+            count=`expr $count + 1`
+        done
+    done
+    
+    printf "* ${GREEN}Dropbox${NC}\n"
+    printf "${BLUE}[$count] "${NC}
+    printf "${YELLOW}Dropbox Scripts${NC}\n"
+    ARRAY+=("code /home/helgi/Dropbox/scripts")
+    
+    #printf '%s\n' "${ARRAY[@]}"
+    tLen=${#ARRAY[*]} # use for loop read all nameservers
+    printf "Input:"
+    read index
+    
+    
+    while ! [[ "$index" =~ ^[0-9]+$ ]] | [[ $index -lt $tLen ]];
+    do
+        echo "input Error"
+        printf "Input:"
+        read index
+    done
+    
+    code ${ARRAY[$index]}
 }
 
 function shutDownTimer() {

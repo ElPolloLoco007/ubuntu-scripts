@@ -1,11 +1,50 @@
 #!/bin/bash
 
-alias c++projects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/C++'
-alias c#projects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/C#'
-alias arduinoprojects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/Arduino'
-alias reactprojects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/React'
-alias androidprojects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/Android'
-alias projects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects'
+case $HOSTNAME in
+    helgi-u-pc)
+        
+    ;;
+    helgi-u-laptop)
+        alias c++projects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/C++'
+        alias c#projects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/C#'
+        alias arduinoprojects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/Arduino'
+        alias reactprojects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/React'
+        alias androidprojects='cd /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/Android'
+        alias led='code /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/Arduino/led'
+    ;;
+    *) echo "How did I get in the middle of nowhere?" ;;
+esac
 
-alias led='code /mnt/c42d2694-1ea4-43ae-a2b8-9f6e9c5ef480/Projects/Arduino/led'
-
+test1(){
+    HEIGHT=15
+    WIDTH=40
+    CHOICE_HEIGHT=4
+    BACKTITLE="Backtitle here"
+    TITLE="Title here"
+    MENU="Choose one of the following options:"
+    
+    OPTIONS=(1 "Option 1"
+        2 "Option 2"
+    3 "Option 3")
+    
+    CHOICE=$(dialog --clear \
+        --backtitle "$BACKTITLE" \
+        --title "$TITLE" \
+        --menu "$MENU" \
+        $HEIGHT $WIDTH $CHOICE_HEIGHT \
+        "${OPTIONS[@]}" \
+    2>&1 >/dev/tty)
+    
+    clear
+    case $CHOICE in
+        1)
+            echo "You chose Option 1"
+        ;;
+        2)
+            echo "You chose Option 2"
+        ;;
+        3)
+            echo "You chose Option 3"
+        ;;
+    esac
+}
